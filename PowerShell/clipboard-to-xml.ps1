@@ -60,6 +60,6 @@ for ($i = 0; $i -lt $lines.Count; $i += 4) {
 }
 
 # Uložení
-$xml.Save(".\vehicles.xml")
+$xml.Save(".\sales.xml")
 
-Write-Host "XML vytvořeno: vehicles.xml"
+Write-Host "XML created: sales.xml"

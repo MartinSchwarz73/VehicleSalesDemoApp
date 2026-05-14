@@ -6,11 +6,11 @@ using System.Text;
 using System.Xml.Linq;
 using VehicleSalesDemoApp.Models;
 
-namespace VehicleSalesDemoApp.ViewModel
+namespace VehicleSalesDemoApp.ViewModels
 {
 public class MainViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<VehicleDetail> Sales { get; set; } = new();
+        public ObservableCollection<VehicleSaleRecord> Sales { get; set; } = new();
         public ObservableCollection<SummaryItem> Summary { get; set; } = new();
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -22,12 +22,12 @@ public class MainViewModel : INotifyPropertyChanged
             Sales.Clear();
 
             var data = doc.Descendants("Vehicle")
-                .Select(x => new VehicleDetail
+                .Select(x => new VehicleSaleRecord
                 {
                     Model = (string)x.Element("Model"),
                     SaleDate = (DateTime)x.Element("SaleDate"),
-                    Price = (double)x.Element("Price"),
-                    VAT = (double)x.Element("VAT")
+                    Price = (decimal)x.Element("Price"),
+                    VAT = (decimal)x.Element("VAT")
                 });
 
             foreach (var item in data)
@@ -46,7 +46,7 @@ public class MainViewModel : INotifyPropertyChanged
                 {
                     Model = g.Key,
                     Total = g.Sum(x => x.Price),
-                    TotalinclVAT = g.Sum(x => x.PriceWithVAT)
+                    TotalWithVAT = g.Sum(x => x.PriceWithVAT)
                 });
 
             foreach (var item in result)
@@ -54,10 +54,4 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public class SummaryItem
-    {
-        public string? Model { get; set; }
-        public double Total { get; set; }
-        public double TotalinclVAT { get; set; }
-    }
 }
