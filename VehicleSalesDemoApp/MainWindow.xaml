@@ -5,8 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VehicleSalesDemoApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Vehicle Sales Demo App" Height="450" Width="800">
+    
+    <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Load XML" Click="Load_Click" Margin="5"/>
+            <Button Content="Calculate Weekend" Click="Calc_Click" Margin="5"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Sales}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+
+    <DataGrid.Columns>
+
+        <DataGridTextColumn
+            Header="Název modelu"
+            Binding="{Binding Model}" />
+
+        <DataGridTextColumn
+            Header="Datum prodeje"
+            Binding="{Binding SaleDate}" />
+
+        <DataGridTextColumn
+            Header="Cena"
+            Binding="{Binding Price}" />
+
+        <DataGridTextColumn
+            Header="DPH (%)"
+            Binding="{Binding VAT}" />
+
+    </DataGrid.Columns>
+
+</DataGrid>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Summary}" CanUserAddRows="False" IsReadOnly="True" />
 
     </Grid>
 </Window>
