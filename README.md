@@ -12,7 +12,6 @@ The app loads vehicle sales data from an XML file and displays it in a structure
   * excl. VAT
   * incl. VAT
 * Option to include/exclude models with zero weekend sales
-* Highlight the top-performing model
 
 ## Technologies
 
