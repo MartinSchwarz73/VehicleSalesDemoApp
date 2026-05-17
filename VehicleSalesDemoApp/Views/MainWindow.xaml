@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VehicleSalesDemoApp" xmlns:viewmodel="clr-namespace:VehicleSalesDemoApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
-        Title="Vehicle Sales Demo App" Height="600" Width="500"
+        Title="Vehicle Sales Demo App" Height="650" Width="500"
         WindowStartupLocation="CenterScreen"
         MinWidth="500"
-        MinHeight="450">
+        MinHeight="500">
 
     <Window.Resources>
 
@@ -32,7 +32,7 @@
     </Window.Background>
 
 
-    <Grid Margin="15">
+    <Grid Margin="0 0 0 10">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
@@ -44,7 +44,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="0 10">
+            <Grid Grid.Row="0" Margin="0,5,0,5">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -52,11 +52,16 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- TITLE -->
-                <TextBlock Text="Sales Data"
+                <TextBlock
                    FontSize="18"
                    FontWeight="SemiBold"
-                   VerticalAlignment="Center"
-                   Margin="10,0"/>
+                   VerticalAlignment="Bottom"
+                   Margin="10 0" Padding="5,0,0,0">
+                   <Run Text="Prodeje vozidel"/>
+                   <Run Text="{Binding FileName}"
+                        FontWeight="Normal"
+                        Foreground="Gray"/>
+                </TextBlock>
 
                 <!-- BUTTON -->
                 <Button Grid.Column="1"
@@ -112,7 +117,7 @@
                 HorizontalGridLinesBrush="#E0E0E0"
                 VerticalGridLinesBrush="#E0E0E0"
                 Margin="10,0,10,10"
-                Padding="0,0,0,0"
+                Padding="0,0,0,8"
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto" BorderBrush="#FF505050" Background="#BFF0F0F0">
@@ -125,7 +130,13 @@
                     <DataGridTextColumn Header="Název modelu"
                                     Binding="{Binding Model}" 
                                     Width="2*"
-                                    HeaderStyle="{StaticResource HeaderLeft}" />
+                                    HeaderStyle="{StaticResource HeaderLeft}" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
 
                     <DataGridTextColumn Header="Datum prodeje"
                                     Binding="{Binding SaleDate, StringFormat={}{0:d}, ConverterCulture=cs-CZ}"
@@ -165,111 +176,153 @@
             </DataGrid>
         </Grid>
         <Grid Grid.Row="1">
-            <Border 
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid
+                    Grid.Row="0"
+                    Margin="10 0"
+                    >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- TITLE -->
+                <TextBlock Text="Víkendové prodeje podle modelů"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   VerticalAlignment="Center" Margin="0,0,0,5" Padding="5,0,0,0"
+                   />
+
+                <!-- CHECKBOX -->
+                <CheckBox Grid.Column="1"
+              Content="Zobrazit nulové položky"
+              IsChecked="{Binding ShowZeroItems}"
+              VerticalAlignment="Center"/>
+
+
+            </Grid>
+
+
+
+            <Grid Grid.Row="1">
+
+                <Border
                 BorderBrush="Black"
                 BorderThickness="1"
                 Margin="10,0,10,0">
 
-                <Grid Grid.IsSharedSizeScope="True">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <!-- HEADER -->
-                    <Grid Grid.Row="0" 
-                      Background="#BFEAEAEA">
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" SharedSizeGroup="Col1"/>
-                            <ColumnDefinition Width="*" SharedSizeGroup="Col2"/>
-                        </Grid.ColumnDefinitions>
-
+                    <Grid Grid.IsSharedSizeScope="True">
+                        <Grid.Effect>
+                            <DropShadowEffect Color="#BF808080" Opacity="0.35"/>
+                        </Grid.Effect>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <!-- MODEL -->
-                        <TextBlock Grid.Row="0"
+
+
+                        <!-- HEADER -->
+                        <Grid Grid.Row="0" 
+                      Background="#BFB3B3B3">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="Col1"/>
+                                <ColumnDefinition Width="*" SharedSizeGroup="Col2"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- MODEL -->
+                            <TextBlock Grid.Row="0"
                        Grid.ColumnSpan="2"
                        Text="Název modelu"
                        FontWeight="SemiBold"
-                       Padding="2 1 0 0"/>
+                       Padding="5 1 0 0"/>
 
-                        <!-- SUBHEADERS -->
-                        <TextBlock Grid.Row="1"
+                            <!-- SUBHEADERS -->
+                            <TextBlock Grid.Row="1"
                        Grid.Column="0"
                        Text="Cena bez DPH"
                        FontWeight="SemiBold"
-                       Padding="2 1 10 1"/>
+                       Padding="5 1 10 1"/>
 
-                        <TextBlock Grid.Row="1"
+                            <TextBlock Grid.Row="1"
                        Grid.Column="1"
                        Text="Cena s DPH"
                        FontWeight="SemiBold"
-                       Padding="2 1 10 1"/>
+                       Padding="5 1 10 1"/>
 
-                    </Grid>
-                    <ScrollViewer   Grid.Row="1" 
+                        </Grid>
+                        <ScrollViewer   Grid.Row="1" 
                                 VerticalScrollBarVisibility="Auto"
                                 HorizontalScrollBarVisibility="Disabled"
                                 MaxHeight="300">
 
-                        <!-- DATA -->
-                        <ItemsControl ItemsSource="{Binding Summary}" Background="#BFFFFFFF">
+                            <!-- DATA -->
+                            <ItemsControl ItemsSource="{Binding Summary}" Background="#BFFFFFFF">
 
-                            <ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemTemplate>
 
-                                <DataTemplate>
+                                    <DataTemplate>
 
-                                    <Border BorderBrush="#D0D0D0"
+                                        <Border BorderBrush="#D0D0D0"
                                         BorderThickness="0,0,0,1">
 
-                                        <Grid>
+                                            <Grid>
 
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" SharedSizeGroup="Col1"/>
-                                                <ColumnDefinition Width="*" SharedSizeGroup="Col2"/>
-                                            </Grid.ColumnDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" SharedSizeGroup="Col1"/>
+                                                    <ColumnDefinition Width="*" SharedSizeGroup="Col2"/>
+                                                </Grid.ColumnDefinitions>
 
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
 
-                                            <!-- MODEL -->
-                                            <TextBlock Grid.Row="0"
+                                                <!-- MODEL -->
+                                                <TextBlock Grid.Row="0"
                                        Grid.ColumnSpan="2"
                                        Text="{Binding Model}"
-                                       Padding="1"/>
+                                       Padding="5 1 10 1"/>
 
-                                            <!-- VALUES -->
-                                            <TextBlock Grid.Row="1"
+                                                <!-- VALUES -->
+                                                <TextBlock Grid.Row="1"
                                        Grid.Column="0"
                                        Text="{Binding Total, StringFormat=N2, ConverterCulture=cs-CZ}"
-                                       Padding="1"/>
+                                       Padding="5 1 10 1"/>
 
-                                            <TextBlock Grid.Row="1"
+                                                <TextBlock Grid.Row="1"
                                        Grid.Column="1"
                                        Text="{Binding TotalWithVAT, StringFormat=N2, ConverterCulture=cs-CZ}"
-                                       Padding="1"/>
+                                       Padding="5 1 10 1"/>
 
-                                        </Grid>
+                                            </Grid>
 
-                                    </Border>
+                                        </Border>
 
-                                </DataTemplate>
+                                    </DataTemplate>
 
-                            </ItemsControl.ItemTemplate>
+                                </ItemsControl.ItemTemplate>
 
-                        </ItemsControl>
+                            </ItemsControl>
 
-                    </ScrollViewer>
+                        </ScrollViewer>
 
-                </Grid>
+                    </Grid>
 
-            </Border>
+                </Border>
+            </Grid>
 
         </Grid>
 

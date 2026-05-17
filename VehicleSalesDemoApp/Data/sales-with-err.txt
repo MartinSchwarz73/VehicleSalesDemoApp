@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Vehicles>
+  <Vehikly>
+    <Model>Škoda Oktávia</Model>
+    <SaleDate>2010-12-02T00:00:00</SaleDate>
+    <Price>500000</Price>
+    <VAT>20</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Felicia</Model>
+    <SaleDate>2000-12-03T00:00:00</SaleDate>
+    <Price>210000</Price>
+    <VAT>20</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Fabia</Model>
+    <SaleDate>2010-12-04T00:00:00</SaleDate>
+    <Price>350000</Price>
+    <VAT>20</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Oktávia</Model>
+    <SaleDate>2010-12-04T00:00:00</SaleDate>
+    <Price>500000</Price>
+    <VAT>20</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Oktávia</Model>
+    <SaleDate>2010-12-05T00:00:00</SaleDate>
+    <Price>500000</Price>
+    <VAT>20</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Fabia</Model>
+    <SaleDate>2010-12-05T00:00:00</SaleDate>
+    <Price>350000</Price>
+    <VAT>20</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Fabia</Model>
+    <SaleDate>2010-12-06T00:00:00</SaleDate>
+    <Price>350000</Price>
+    <VAT>20</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Forman</Model>
+    <SaleDate>2000-12-04T00:00:00</SaleDate>
+    <Price>100000</Price>
+    <VAT>19</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Favorit</Model>
+    <SaleDate>2000-12-05T00:00:00</SaleDate>
+    <Price>80000</Price>
+    <VAT>19</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Forman</Model>
+    <SaleDate>2000-12-06T00:00:00</SaleDate>
+    <Price>100000</Price>
+    <VAT>19</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Felicia</Model>
+    <SaleDate>2000-12-03T00:00:00</SaleDate>
+    <Price>210000</Price>
+    <VAT>19</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Felicia</Model>
+    <SaleDate>2000-12-02T00:00:00</SaleDate>
+    <Price>210000</Price>
+    <VAT>19</VAT>
+  </Vehicle>
+  <Vehicle>
+    <Model>Škoda Oktávia</Model>
+    <SaleDate>2010-12-07T00:00:00</SaleDate>
+    <Price>500000</Price>
+    <VAT>20</VAT>
+  </Vehicle>
+</Vehicles>

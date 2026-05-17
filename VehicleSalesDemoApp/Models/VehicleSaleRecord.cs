@@ -8,9 +8,9 @@ namespace VehicleSalesDemoApp.Models
     {
         public string? Model { get; set; }
         public DateTime SaleDate { get; set; }
-        public decimal Price { get; set; }
-        public decimal VAT { get; set; }
+        public double Price { get; set; }
+        public double VAT { get; set; }
 
-        public decimal PriceWithVAT => Price * (1 + VAT / 100);
+        public double PriceWithVAT => Price * (1 + VAT / 100);
     }
 }

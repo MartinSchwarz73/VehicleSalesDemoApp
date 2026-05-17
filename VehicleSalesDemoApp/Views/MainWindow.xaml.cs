@@ -26,9 +26,9 @@ namespace VehicleSalesDemoApp
             }
         }
 
-        private void Calc_Click(object sender, RoutedEventArgs e)
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            vm.CalculateWeekendTotals();
+
         }
     }
 }

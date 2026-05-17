@@ -48,6 +48,18 @@ public class MainViewModel : INotifyPropertyChanged
             }
         }
 
+        private string _fileName = "";
+
+        public string FileName
+        {
+            get => _fileName;
+            set
+            {
+                _fileName = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void LoadXml(string path)
         {
             try
@@ -61,12 +73,14 @@ public class MainViewModel : INotifyPropertyChanged
                     {
                         Model = (string)x.Element("Model"),
                         SaleDate = (DateTime)x.Element("SaleDate"),
-                        Price = (decimal)x.Element("Price"),
-                        VAT = (decimal)x.Element("VAT")
+                        Price = (double)x.Element("Price"),
+                        VAT = (double)x.Element("VAT")
                     });
 
                 foreach (var item in data)
                     Sales.Add(item);
+
+                FileName = "(" + Path.GetFileName(path) + ")";
 
                 UpdateSummary();
             }

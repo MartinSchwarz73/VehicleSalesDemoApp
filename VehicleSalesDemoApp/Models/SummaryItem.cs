@@ -7,7 +7,7 @@ namespace VehicleSalesDemoApp.Models
     public class SummaryItem
     {
         public string? Model { get; set; }
-        public decimal Total { get; set; }
-        public decimal TotalWithVAT { get; set; }
+        public double Total { get; set; }
+        public double TotalWithVAT { get; set; }
     }
 }
