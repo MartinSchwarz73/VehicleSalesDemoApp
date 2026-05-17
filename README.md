@@ -73,6 +73,6 @@ To simplify working with input data, a PowerShell script was created to convert 
 * Demonstrates basic automation skills
 
 > Note: This script was created as a helper tool and is not part of the main WPF application. <br>
-See /PowerShell/ConvertToXml.ps1 for implementation.
+See /PowerShell/clipboard-to-xml.ps1 for implementation.
 
 
