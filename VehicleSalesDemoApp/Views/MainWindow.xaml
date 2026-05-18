@@ -39,6 +39,7 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
+        <!--tabulka prodejů vozidel - hlavička + tabulka-->
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -51,7 +52,6 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- TITLE -->
                 <TextBlock
                    FontSize="18"
                    FontWeight="SemiBold"
@@ -63,7 +63,6 @@
                         Foreground="Gray"/>
                 </TextBlock>
 
-                <!-- BUTTON -->
                 <Button Grid.Column="1"
                         Content="Load XML"
                         Click="Load_Click"
@@ -139,7 +138,10 @@
                     </DataGridTextColumn>
 
                     <DataGridTextColumn Header="Datum prodeje"
-                                    Binding="{Binding SaleDate, StringFormat={}{0:d}, ConverterCulture=cs-CZ}"
+                                    Binding="{Binding SaleDate, 
+                                        StringFormat={}{0:d}, 
+                                           ConverterCulture=cs-CZ,
+                                            TargetNullValue=''}"
                                     HeaderStyle="{StaticResource HeaderCenter}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -150,23 +152,33 @@
 
 
                     <DataGridTextColumn Header="Cena (Kč)"
-                                    Binding="{Binding Price, StringFormat=N0, ConverterCulture=cs-CZ}"
                                     HeaderStyle="{StaticResource HeaderCenter}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextAlignment" Value="Center"/>
+                                <Setter Property="Text" Value="{Binding Price, StringFormat=N0, ConverterCulture=cs-CZ}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Price}" Value="-1">
+                                        <Setter Property="Text" Value="" />
+                                    </DataTrigger>
+                                </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
                     <DataGridTextColumn Header="DPH (%)"
-                                    Binding="{Binding VAT}" 
                                     Width="Auto"
                                     MinWidth="40"
                                     HeaderStyle="{StaticResource HeaderCenter}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextAlignment" Value="Center"/>
+                                <Setter Property="Text" Value="{Binding VAT}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding VAT}" Value="-1">
+                                        <Setter Property="Text" Value="" />
+                                    </DataTrigger>
+                                </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
@@ -175,6 +187,8 @@
 
             </DataGrid>
         </Grid>
+        
+        <!--víkendové prodeje podle modelů - hlavička + tabulka -->
         <Grid Grid.Row="1">
 
 

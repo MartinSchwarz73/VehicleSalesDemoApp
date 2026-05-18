@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Vehicles>
-  <Vehikly>
+  <Vehicl>
     <Model>Škoda Oktávia</Model>
     <SaleDate>2010-12-02T00:00:00</SaleDate>
-    <Price>500000</Price>
-    <VAT>20</VAT>
+    <Price>500000a</Price>
+    <VAT>20a</VAT>
   </Vehicle>
   <Vehicle>
     <Model>Škoda Felicia</Model>

@@ -16,6 +16,7 @@ namespace VehicleSalesDemoApp
             DataContext = vm;
         }
 
+        // Event handler pro uložení dat do XML souboru
         private void Load_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new Microsoft.Win32.OpenFileDialog();
@@ -26,9 +27,5 @@ namespace VehicleSalesDemoApp
             }
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

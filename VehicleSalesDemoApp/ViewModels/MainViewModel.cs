@@ -12,7 +12,7 @@ using VehicleSalesDemoApp.Models;
 
 namespace VehicleSalesDemoApp.ViewModels
 {
-public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<SummaryItem> _summary = new();
         public ObservableCollection<VehicleSaleRecord> Sales { get; set; } = new();
@@ -33,7 +33,7 @@ public class MainViewModel : INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-
+        // Toto pole určuje, zda se v souhrnu zobrazí i modely s nulovými prodeji.
         private bool _showZeroItems = true;
 
         public bool ShowZeroItems
@@ -48,6 +48,7 @@ public class MainViewModel : INotifyPropertyChanged
             }
         }
 
+        // Toto pole uchovává název načteného souboru, který se zobrazuje v závorce vedle názvu aplikace.
         private string _fileName = "";
 
         public string FileName
@@ -60,6 +61,64 @@ public class MainViewModel : INotifyPropertyChanged
             }
         }
 
+        // Tato metoda načítá XML soubor a dynamicky mapuje jeho obsah na vlastnosti třídy VehicleSaleRecord pomocí reflexe.
+        public void LoadXmlDynamic(string path)
+        {
+            try
+            {
+                var doc = XDocument.Load(path);
+
+                if (doc.Root == null)
+                    throw new Exception("XML nemá kořenový element.");
+
+                Sales.Clear();
+
+                IEnumerable<XElement> docElements = doc.Root.Elements();
+                var nodes = docElements
+                    .Select(currentNode =>
+                    {
+                        var record = new VehicleSaleRecord();
+
+                        foreach (var element in currentNode.Elements())
+                        {
+                            // najde property podle názvu XML elementu
+                            var property = typeof(VehicleSaleRecord)
+                            .GetProperty(element.Name.LocalName);
+
+                            // pokud property existuje
+                            if (property != null)
+                            {
+                                // převede string z XML na správný typ
+                                var convertedValue = Convert.ChangeType(
+                                   element.Value,
+                                   property.PropertyType);
+
+                                // nastaví hodnotu property
+                                property.SetValue(record, convertedValue);
+                            }
+                        }
+
+                        return record;
+                });
+
+                foreach (var node in nodes)
+                    Sales.Add(node);
+
+                FileName = "(" + Path.GetFileName(path) + ")";
+
+                UpdateSummary();
+            }
+            catch (XmlException)
+            {
+                MessageBox.Show("XML soubor má špatný formát.");
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("Soubor se nepodařilo načíst.");
+            }
+        }
+
+        // Tato metoda načítá XML soubor a mapuje jeho obsah na vlastnosti třídy VehicleSaleRecord pomocí pevně definovaných názvů elementů.
         public void LoadXml(string path)
         {
             try
@@ -71,10 +130,10 @@ public class MainViewModel : INotifyPropertyChanged
                 var data = doc.Descendants("Vehicle")
                     .Select(x => new VehicleSaleRecord
                     {
-                        Model = (string)x.Element("Model"),
-                        SaleDate = (DateTime)x.Element("SaleDate"),
-                        Price = (double)x.Element("Price"),
-                        VAT = (double)x.Element("VAT")
+                        Model = (string)x.Element("Model") ?? "",
+                        SaleDate = DateTime.TryParse((string)x.Element("SaleDate"), out var d) ? d : null,
+                        Price = double.TryParse((string)x.Element("Price"), out var price) ? price : -1,
+                        VAT = double.TryParse((string)x.Element("VAT"), out var vat) ? vat : -1 
                     });
 
                 foreach (var item in data)
@@ -95,14 +154,14 @@ public class MainViewModel : INotifyPropertyChanged
         }
 
 
-
+        // Tato metoda vypočítává souhrn prodeje pouze pro víkendové prodeje a aktualizuje kolekci Summary.
         public void CalculateWeekendTotals()
         {
             Summary.Clear();
 
             var result = Sales
-                .Where(s => s.SaleDate.DayOfWeek == DayOfWeek.Saturday
-                         || s.SaleDate.DayOfWeek == DayOfWeek.Sunday)
+                .Where(s => s.SaleDate?.DayOfWeek == DayOfWeek.Saturday
+                         || s.SaleDate?.DayOfWeek == DayOfWeek.Sunday)
                 .GroupBy(s => s.Model)
                 .Select(g => new SummaryItem
                 {
@@ -115,7 +174,7 @@ public class MainViewModel : INotifyPropertyChanged
                 Summary.Add(item);
         }
 
-
+        // Tato metoda aktualizuje souhrn prodeje pro všechny modely, přičemž zohledňuje nastavení ShowZeroItems.
         private void UpdateSummary()
         {
             Summary.Clear();
@@ -125,8 +184,8 @@ public class MainViewModel : INotifyPropertyChanged
                 .Select(g =>
                 {
                     var weekendSales = g
-                        .Where(x => x.SaleDate.DayOfWeek == DayOfWeek.Saturday
-                                 || x.SaleDate.DayOfWeek == DayOfWeek.Sunday);
+                        .Where(x => x.SaleDate?.DayOfWeek == DayOfWeek.Saturday
+                                 || x.SaleDate?.DayOfWeek == DayOfWeek.Sunday);
 
                     var total = weekendSales.Sum(x => x.Price);
                     var totalWithVAT = weekendSales.Sum(x => x.PriceWithVAT);
